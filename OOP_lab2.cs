@@ -14,7 +14,6 @@ namespace ArrayOperations
                 Console.WriteLine("\nОберіть вид масиву:");
                 Console.WriteLine("1. Одновимірний масив");
                 Console.WriteLine("2. Двовимірний масив");
-                Console.WriteLine("3. Многовимірний масив");
                 Console.WriteLine("0. Вийти");
 
                 int option;
@@ -31,9 +30,6 @@ namespace ArrayOperations
                         break;
                     case 2:
                         PerformTwoDimensionalArrayOperations();
-                        break;
-                    case 3:
-                        PerformMultidimensionalArrayOperations();
                         break;
                     case 0:
                         Console.WriteLine("Вихід...");
@@ -222,9 +218,10 @@ namespace ArrayOperations
                     case 7:
                         if (array != null)
                         {
-                            Console.WriteLine("Введіть алгоритм заповнення масиву (наприклад, рандомний алгоритм):");
-                            string fillAlgorithm = Console.ReadLine();
-                            // Виконати заповнення масиву за заданим алгоритмом
+							Random rnd = new Random();
+							for (int i = 0; i < array.Length; i++) {
+								array[i] = rnd.Next(10, 99);
+							}
                             Console.WriteLine("Масив заповнено.");
                         }
                         else
@@ -235,7 +232,7 @@ namespace ArrayOperations
                     case 8:
                         if (array != null)
                         {
-                            array.Reverse();
+                            Array.Reverse(array);
                             Console.WriteLine("Масив трансформовано (елементи переставлено в зворотньому порядку).");
                         }
                         else
@@ -468,9 +465,14 @@ namespace ArrayOperations
                     case 7:
                         if (array != null)
                         {
-                            Console.WriteLine("Введіть алгоритм заповнення масиву (наприклад, рандомний алгоритм):");
-                            string fillAlgorithm = Console.ReadLine();
-                            // Виконати заповнення масиву за заданим алгоритмом
+                            Random random = new Random();
+							for (int i = 0; i < array.GetLength(0); i++)
+							{
+								for (int j = 0; j < array.GetLength(1); j++)
+								{
+									array[i, j] = random.Next(); // Generate a random integer and assign it to the matrix element
+								}
+							}
                             Console.WriteLine("Масив заповнено.");
                         }
                         else
@@ -481,10 +483,21 @@ namespace ArrayOperations
                     case 8:
                         if (array != null)
                         {
-                            Console.WriteLine("Введіть алгоритм трансформації масиву (наприклад, зворотній порядок):");
-                            string transformationAlgorithm = Console.ReadLine();
-                            // Виконати трансформацію масиву за заданим алгоритмом
-                            Console.WriteLine("Масив трансформовано.");
+							int rows1 = array.GetLength(0);
+							int columns1 = array.GetLength(1);
+
+							int[,] transposedMatrix = new int[columns1, rows1];
+
+							for (int i = 0; i < rows1; i++)
+							{
+								for (int j = 0; j < columns1; j++)
+								{
+									transposedMatrix[j, i] = array[i, j];
+								}
+							}
+
+							array = transposedMatrix;
+                            Console.WriteLine("Масив трансформовано (транспоновано).");
                         }
                         else
                         {
